@@ -4,7 +4,8 @@ const jwt = require('jsonwebtoken');
 
 const userRoute =  express.Router();
 
-const User = require('../model/user');
+// const User = require('../model/user');
+const user = require('../model/user');
 
 userRoute.post('/register',(req, res) => {
 
