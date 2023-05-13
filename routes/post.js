@@ -6,7 +6,7 @@ const Post = require('../model/post');
 
 const authMiddleware =  require('../middleware/auth');
 
-postsRoute.get('/getPosts', authMiddleware, (req, res) => {
+postsRoute.get('/getPosts', (req, res) => {
     const postId =  Number(req.query.id);
     let filter = {}
     // send only the post with matching id
@@ -34,9 +34,9 @@ postsRoute.post('/createPost', authMiddleware, (req, res) => {
     const socialMediaPost = req.body;
 
     const post = new Post({
-        id: socialMediaPost.id,
-        user: socialMediaPost.user,
-        content: socialMediaPost.content
+        title: socialMediaPost.title,
+        content: socialMediaPost.content,
+        author: req.userId
     })
 
     post.save().then((record) => {
@@ -56,8 +56,12 @@ postsRoute.put('/updatePost/:postId', authMiddleware, (req, res) => {
     const postId = req.params.postId; // Get the post ID from the request URL
     const updatedPostData = req.body; // Get the updated post data from the request body
     
-    Post.findByIdAndUpdate(postId, updatedPostData)
+    Post.findOneAndUpdate({
+        _id: postId,
+        author: req.userId
+    }, updatedPostData)
         .then(updatedPost => {
+            console.log(updatedPost);
         if (!updatedPost) {
             // If the post doesn't exist, send a 404 response
             return res.status(404).json({
