@@ -4,8 +4,8 @@ const jwt = require('jsonwebtoken');
 
 const userRoute =  express.Router();
 
-// const User = require('../model/user');
-const user = require('../model/user');
+const User = require('../model/user');
+// const user = require('../model/user');
 
 userRoute.post('/register',(req, res) => {
 
@@ -37,7 +37,7 @@ userRoute.post('/register',(req, res) => {
 
 userRoute.post('/login', (req, res) => {
     const userData = req.body;
-    user.findOne({email: userData.email}).then(user => {
+    User.findOne({email: userData.email}).then(user => {
         if(user) {
             return bcrypt.compare(userData.password, user.password).then(authStatus => {
                 if(authStatus) {
