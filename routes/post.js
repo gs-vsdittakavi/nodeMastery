@@ -4,8 +4,9 @@ const postsRoute =  express.Router();
 
 const Post = require('../model/post');
 
-postsRoute.get('/getPosts',(req, res) => {
+const authMiddleware =  require('../middleware/auth');
 
+postsRoute.get('/getPosts', authMiddleware, (req, res) => {
     const postId =  Number(req.query.id);
     let filter = {}
     // send only the post with matching id
@@ -28,7 +29,7 @@ postsRoute.get('/getPosts',(req, res) => {
     });
 })
 
-postsRoute.post('/createPost',(req, res) => {
+postsRoute.post('/createPost', authMiddleware, (req, res) => {
 
     const socialMediaPost = req.body;
 
@@ -51,7 +52,7 @@ postsRoute.post('/createPost',(req, res) => {
     });
 })
 
-postsRoute.put('/updatePost/:postId', (req, res) => {
+postsRoute.put('/updatePost/:postId', authMiddleware, (req, res) => {
     const postId = req.params.postId; // Get the post ID from the request URL
     const updatedPostData = req.body; // Get the updated post data from the request body
     
@@ -80,7 +81,7 @@ postsRoute.put('/updatePost/:postId', (req, res) => {
 });
 
 
-postsRoute.delete('/deletePost/:id', (req, res) => {
+postsRoute.delete('/deletePost/:id', authMiddleware, (req, res) => {
     console.log(req.params.id);
     Post.deleteOne({id: req.params.id}).then(response => {
         res.status(200).json({
