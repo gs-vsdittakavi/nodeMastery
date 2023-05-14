@@ -31,6 +31,9 @@ userRoute.post('/register',(req, res) => {
         });
     }).catch(err => {
         console.log("error while encrypting", err);
+        res.status(500).json({
+            message: "Internal server error"
+        });
     })
 })
 

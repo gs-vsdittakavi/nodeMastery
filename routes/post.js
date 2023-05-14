@@ -100,4 +100,9 @@ postsRoute.delete('/deletePost/:id', authMiddleware, (req, res) => {
     });
 });
 
+
+// postsRoute.post('/admin', authMiddleware, adminMiddleWare, (req, res, next) => {
+// //
+// })
+
 module.exports = postsRoute;
