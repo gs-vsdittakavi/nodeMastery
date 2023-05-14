@@ -1,0 +1,14 @@
+Testing
+
+1. Manual testing
+2. Automation testing - selenium, jasmine
+3. Unit testing - jest, chai, mocha
+4. Integration testing - supertest
+5. Performance testing
+6. Security testing
+7. Functional testing
+
+
+We will use jest for our unit testing
+
+- JEST is a unit testing framework developed by Facebook. It is useful to unit test javascript applications
