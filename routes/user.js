@@ -55,7 +55,7 @@ userRoute.post('/login', (req, res) => {
                         expiresIn: "1h"
                         }, (err, token) => {
                             if(err) {
-                                return res.json({
+                                return res.status(200).json({
                                     message: "Token creation failed"
                                 });
                             }
