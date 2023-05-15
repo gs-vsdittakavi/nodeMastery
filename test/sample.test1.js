@@ -19,7 +19,7 @@ describe('to test add functionality',() => {
 
     test('should fail for strings other than numbers', () => {
         const result = add('test','fail');
-        expect(result).toBe("please provide valid numbers")
+        expect(result).toBe("please provide valid numbers");
     });
 
 

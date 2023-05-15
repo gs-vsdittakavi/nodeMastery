@@ -51,7 +51,7 @@ describe('test /user and its apis', () => {
 
         it('should return an error if failed to create user', async () => {
             
-            // simulate a faulre in saving the user
+            // simulate a failure in saving the user
             jest.spyOn(User.prototype, 'save').mockRejectedValueOnce(new Error('Failed to create user!'));
 
             const userData = {
@@ -88,10 +88,42 @@ describe('test /user and its apis', () => {
 
     })
 
-    // describe('POST /login', () => {
+    describe('POST /login', () => {
+
+        it('should authenticate user and return a token', async () => {
+
+            const userData = {
+                email: 'test@example.com',
+                password: 'password'
+            }
+
+            // Create the user and save to DB before testing our login. 
+            //For login, we need that user in DB (should be registered already)
+
+            const encryptedPassword =  await bcrypt.hash(userData.password, 10);
+            const user = new User({
+                email: userData.email,
+                name: 'Test User',
+                password: encryptedPassword
+            });
+
+            await user.save();
+
+            const response = await request(app).post('/user/login').send(userData).expect(200);
+
+            const res = JSON.parse(response.text);
+            expect(res.message).toBe('Authentication successful');
+            expect(res.token).toBeTruthy();
+
+            // Verify the JWT token
+            const decodedToken = jwt.verify(res.token, '10x_academy_node_mastery');
+            expect(decodedToken.email).toBe(userData.email);
+            expect(decodedToken.id).toBe(user._id.toString());
+
+        });
 
 
-    // })
+    });
 
 
 })
