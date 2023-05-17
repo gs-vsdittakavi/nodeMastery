@@ -11,6 +11,8 @@ describe('Post routes',() => {
     beforeEach(async () => {
 
         await User.deleteMany({});
+        await Post.deleteMany({});
+
 
 
         const user = new User({
@@ -30,18 +32,20 @@ describe('Post routes',() => {
     
     afterAll(async () => {
         await User.deleteMany({});
+        await Post.deleteMany({});
     });
 
     
 
     describe('POST /createPost', () => {
 
-        it('should create a new post', async () => {
-            const post = {
-                title: 'Test Post',
-                content: 'This is a test post'
-            };
+        const post = {
+            title: 'Test Post',
+            content: 'This is a test post'
+        };
 
+        it('should create a new post', async () => {
+            
             const response = await request(app)
             .post('/post/createPost')
             .set('Authorization', `Bearer ${token}`)
@@ -55,9 +59,76 @@ describe('Post routes',() => {
             expect(response.body.data.author).toBeDefined();
 
             //verify if the post is saved in DB
-            
+
+            const savedPost = await Post.findById(response.body.data._id);
+
+            expect(savedPost).toBeTruthy();
+            expect(savedPost.title).toBe(post.title);
+            expect(savedPost.content).toBe(post.content);
+            expect(savedPost.author.toString()).toBe(response.body.data.author);
+        });
+
+
+        it('should return an error if failed to save post', async () => {
+
+            jest.spyOn(Post.prototype, 'save').mockRejectedValueOnce(new Error('Failed to save'));
+
+            const response = await request(app)
+            .post('/post/createPost')
+            .set('Authorization', `Bearer ${token}`)
+            .send(post)
+            .expect(500);
+
+            expect(response.body.message).toEqual('Failed to save!');
+            // expect(response.body.data).toBe('Failed to save');
 
         });
+
+
+        it('should return an error if authentication failed', async () => {
+
+            const response = await request(app)
+            .post('/post/createPost')
+            .send(post)
+            .expect(401);
+
+            expect(response.body.message).toEqual('Authentication failed');
+
+        });
+
+    });
+
+
+    describe('GET /getPosts', () => {
+
+
+
+        it('should fetch all posts', async () => {
+
+            const postData = [
+                {
+                    id: 1,
+                    title: 'Post 1',
+                    content: 'Post 1 content',
+                    author: 'sfkjsflsfs'
+                },
+                {
+                    id: 2,
+                    title: 'Post 2',
+                    content: 'Post 2 content',
+                    author: 'rerjkehrjke'
+                }
+            ]
+
+            jest.spyOn(Post, 'find').mockResolvedValueOnce(postData);
+
+            const response = await request(app).get('/post/getPosts');
+
+            expect(response.status).toBe(200);
+            expect(response.body.message).toBe('Fetched posts successfully!');
+            expect(response.body.data[0].title).toBe(postData[0].title);
+
+        })
 
     });
 
