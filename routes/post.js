@@ -7,6 +7,13 @@ const Post = require('../model/post');
 const authMiddleware =  require('../middleware/auth');
 
 postsRoute.get('/getPosts', (req, res) => {
+    //PAGINATION
+    //http://localhost:3000/post/getPosts/?pageNumber=1&recordsPerPage=10; for page 1
+    //http://localhost:3000/post/getPosts/?pageNumber=2&recordsPerPage=10; for page 2
+
+    const pageNo = Number(req.query.pageNumber);
+    const recordsCount = Number(req.query.recordsPerPage);
+
     const postId =  Number(req.query.id);
     let filter = {}
     // send only the post with matching id
@@ -15,8 +22,16 @@ postsRoute.get('/getPosts', (req, res) => {
             id: postId
         }
     }
+    let postRequest = Post.find(filter);
 
-    Post.find(filter).then(postData => {
+    if( !postId && (pageNo  && recordsCount)) {
+
+        postRequest
+        .skip(recordsCount * pageNo-1) // for page 2 records (10*(2-1)) = 10
+        .limit(recordsCount);
+    }
+
+    postRequest.then(postData => {
         res.status(200).json({
             message: 'Fetched posts successfully!',
             data: postData

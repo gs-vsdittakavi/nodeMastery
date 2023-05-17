@@ -15,7 +15,7 @@ module.exports  = (req, res, next) => {
         req.userId = verifiedToken.id;
         next();
     } catch {
-        res.json({
+        res.status(401).json({
             message: 'Authentication failed'
         })
     }
