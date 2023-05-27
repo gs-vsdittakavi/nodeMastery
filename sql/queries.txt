@@ -1,0 +1,66 @@
+SELECT price
+FROM [Products]
+where price BETWEEN 3 AND 10
+
+SELECT *
+FROM Products
+WHERE price NOT IN (10)
+
+SELECT *
+FROM Products
+WHERE price <> 10
+
+SELECT *
+FROM Products
+WHERE price != 10
+
+SELECT AVG(price)
+FROM Products
+
+SELECT categoryid, MIN(price) AS LeastPrice
+FROM Products
+GROUP BY categoryId
+
+SELECT categoryid, MIN(price) AS LeastPrice
+FROM Products
+GROUP BY categoryId
+HAVING categoryId IN (1,2,3)
+
+SELECT *
+FROM customers 
+JOIN Orders
+ON customers.customerid = orders.customerid
+
+SELECT *
+FROM customers 
+JOIN Orders
+ON customers.customerid = orders.customerid
+order by customerid
+
+SELECT customerid, customername, orderid, orderdate
+FROM customers 
+JOIN Orders
+ON customers.customerid = orders.customerid
+WHERE customers.customerid = 4
+
+SELECT c.customerid, customername, orderid, orderdate
+FROM customers c
+JOIN Orders o
+ON c.customerid = o.customerid
+WHERE c.customerid = 4
+
+
+SELECT *
+FROM customers c
+JOIN Orders o
+ON c.customerid = o.customerid
+JOIN Shippers s
+ON o.ShipperID = s.shipperID
+
+
+SELECT categoryId, MAX(categoryCount)
+FROM (
+      SELECT categoryId, count(*) as categoryCount
+      FROM [Products]
+      group by categoryid
+  )

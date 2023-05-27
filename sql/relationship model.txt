@@ -1,0 +1,40 @@
+Relational DBMS
+
+what is a model :
+
+collection of concepts that you use to descrie data in database
+
+in case of mongo db our concepts were collection, document, key value pair, schema
+
+
+in case of relational model, our concepts will be table, rows, columns, schema, records
+
+In relationship model we store data in tables. Each table will have multiple rows
+and columns. Each table can have a relationship with other tables
+
+properties of a telationship (table):
+
+it is a set of rows and order of the rows does not matter
+each row has columns and order of columns does not matter.
+
+each row should be unique - no duplicates allowed
+
+KEY:
+
+key is something with which you can uniquely identify a record(row)
+key can be combination of multiple columns.
+generally we have ID or email,or phone no as unique key and we call it PRIMARY KEY
+
+generally primary key is single value (eg: employee_id)
+but it can be a combination of multiple values (email_id, phone_no);
+
+To link the tables in relation, we have FOREIGN KEY
+
+student table
+
+rollno fname lname age gender location courseid
+
+
+course table
+
+courseid startdate strength

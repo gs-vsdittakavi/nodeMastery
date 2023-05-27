@@ -1,0 +1,14 @@
+agenda
+
+SQL fundamentals
+
+CRUD operations
+
+aggregate functions
+
+joins
+
+we are beginner level
+by tomorrow
+//we will have a good understanding of what sql is and what are the operations we can do on it.
+// we will be comfortable to talk or understand about sql queries and various DBMS

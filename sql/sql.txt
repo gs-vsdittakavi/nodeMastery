@@ -1,0 +1,42 @@
+if we want to stroe some data,
+we need to follow certain steps
+
+1. schema design
+    .In schema design phase, we identify the tables,
+    .we design the tables
+    .we identify relationships between tables
+
+2. create database
+3. create tables
+
+For schema design, we need requirements
+
+1. 10x has multiple students
+2. 10x has multiple batches. Each student will belong to exactly one batch
+3. 1 batch can have multiple students
+4. Every batch has instructors
+5. Every batch can have multiple classess.
+6. Every student has a mentor
+7. For every mentor, we store their company and classes taken
+8. For every student, for every batch we need to store attendance
+
+
+to design a schema, follow the steps below:
+
+Step 1. Find all the nouns. These are the ones for which you will 
+store data. We need to create tables for these nouns
+students, batches, classes, instructors, mentor, attendance
+
+Step 2: For each noun, find what all we need to store
+eg: students -> id, name, age, gender, email, phone
+
+batches
+id name startdate noofstudents
+
+instructors
+id name email rating doj
+
+classes
+
+id startTime title endTime
+

@@ -1,0 +1,38 @@
+we are talking about database
+
+we talk about Data Base Management Systems (DBMS)
+
+
+// let us imagine the situation to store data some 40 years ago without any DBMS
+
+our options can be excel, txt, or directly on hard disk
+
+
+students.txt
+
+arun | B | male | 21 | chennai | nodejs
+neeharika female 20 hyderabad sql
+mayank male 20 hyderabad
+
+
+courses.txt
+
+nodejs 6May 40 
+sql 20May 40
+sql 10Mar 25
+
+// if we are storing data in txt files, we have problems of inconsistent data
+headache of updating it everytime in an improper way
+we have integrity issues
+
+to solve the above problem, we have DBMS coming in
+
+DBMS
+|
+|-> Relational DBMS - eg: mysql
+|
+|-> Non relational DBMS - eg: mongodb
+
+
+
+
