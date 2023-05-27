@@ -102,7 +102,7 @@ postsRoute.put('/updatePost/:postId', authMiddleware, (req, res) => {
 
 postsRoute.delete('/deletePost/:id', authMiddleware, (req, res) => {
     console.log(req.params.id);
-    Post.deleteOne({id: req.params.id}).then(response => {
+    Post.deleteOne({_id: req.params.id, author: req.userId}).then(response => {
         res.status(200).json({
             message: "Record deleted successfully",
             data: response

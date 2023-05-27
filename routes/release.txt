@@ -1,0 +1,9 @@
+there are stages of a product(promotion levels)
+
+1. Development - developers develop and test locally - git clone and code is accessible
+
+2. QA(Testing) - testers need to have the application running somewhere to test - what we call as environment
+
+3. Staging -  staging environment
+
+4. production - open to public
