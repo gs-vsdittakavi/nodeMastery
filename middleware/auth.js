@@ -1,5 +1,6 @@
 const { request } = require("express");
 const jwt = require("jsonwebtoken");
+require('dotenv').config();
 
 //logic to validate the auth token
 module.exports  = (req, res, next) => {
@@ -10,7 +11,7 @@ module.exports  = (req, res, next) => {
         console.log(token);
         // In actual projects, we dont use secrets like this in code directly
         //Instead, we store them in secure places like vaults and read it from there
-        const verifiedToken = jwt.verify(token, '10x_academy_node_mastery'); 
+        const verifiedToken = jwt.verify(token, process.env.ENCRYPTION_SECRET); 
         console.log(verifiedToken);
         req.userId = verifiedToken.id;
         next();
