@@ -1,6 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const userRoute =  express.Router();
 
@@ -50,7 +51,7 @@ userRoute.post('/login', (req, res) => {
                             email: user.email, 
                             id: user._id
                         }, 
-                        '10x_academy_node_mastery',  // secret password-> store it securely somewhere
+                        process.env.ENCRYPTION_SECRET,  // secret password-> store it securely somewhere
                         {
                         expiresIn: "1h"
                         }, (err, token) => {

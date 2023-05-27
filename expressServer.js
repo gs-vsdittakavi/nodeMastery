@@ -13,17 +13,12 @@ const app = express();
 
 app.use(cors());
 
-const port =  process.env.PORT || 3001;
-
-//B2M2gcaKMb1BTwM4
-
-// mongodb+srv://dvschakradhar:<password>@cluster0.mqd0msv.mongodb.net/?retryWrites=true&w=majority
+const port =  process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
-// mongoose.connect('mongodb+srv://dvschakradhar:B2M2gcaKMb1BTwM4@cluster0.mqd0msv.mongodb.net/node-mastery?retryWrites=true&w=majority')
 mongoose.connect(`${process.env.MONGO_CLUSTER_NAME}${process.env.MONGO_PWD}${process.env.MONGO_CONNECTION_STRING}`)
 .then((response) => {
     console.log("connected to mongod DB successfully!");
